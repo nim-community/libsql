@@ -300,7 +300,8 @@ proc openDatabase*(config: DbConfig): Database =
   var desc: libsql_database_desc_t
   if config.url.isSome:
     desc.url = config.url.get.cstring
-  desc.path = config.path.cstring
+  if config.path != "":
+    desc.path = config.path.cstring
   if config.authToken.isSome:
     desc.auth_token = config.authToken.get.cstring
   if config.encryptionKey.isSome:
