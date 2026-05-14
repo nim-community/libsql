@@ -1,4 +1,4 @@
-import std/options
+import std/[options, os]
 
 when defined(macosx):
   const liblibsql = "liblibsql.dylib"
@@ -8,7 +8,7 @@ else:
   const liblibsql = "liblibsql.so"
 
 when defined(libsqlStatic):
-  {.passL: "-L" & getEnv("HOME") & "/.local/lib -lliblibsql" .}
+  {.passL: "-L" & getEnv("HOME") & "/.local/lib -l:liblibsql.a" .}
   {.push cdecl.}
 else:
   {.push cdecl, dynlib: liblibsql.}
